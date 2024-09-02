@@ -1,0 +1,72 @@
+.card-body input{
+    width: 40px;
+    border-radius: 20px;
+}
+
+#listado-prendas img {
+    height: 15em;
+    width: 10em;
+}
+
+body{
+background:linear-gradient(to left,rgba(213, 218, 223),rgb(142, 139, 164));
+}
+
+#listado-prendas .btn{
+    width: 40px;
+    border-radius: 20px;
+}
+nav{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    background:rgb(43, 14, 70) ;
+    }
+nav .navbar-brand{
+    font-family: lobster;
+    font-size:24px;
+}
+
+h3{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+table{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+.btn-agregar{
+        background: rgb(130, 98, 161);
+        
+    }
+    
+.finalizar-compra{
+        background: rgb(45, 45, 84);
+        margin-top: 10px;
+    }
+.modal btn{
+    background: gray;
+}
+
+.carousel-indicators [data-bs-target] {
+    width: 12px; /* Ancho del círculo */
+    height: 12px; /* Alto del círculo */
+    border-radius: 50%; /* Hace que el botón sea circular */
+    background-color: #000; /* Color de fondo del indicador */
+  }
+
+  .carousel-indicators .active {
+    background-color: #fff; /* Color del indicador activo */
+  }
+
+
+.div3 {
+    font-size: 20px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+.div3 img{
+    width: 20em;
+}
+
+footer h4{
+font-family: lobster;
+}
