@@ -25,7 +25,7 @@ $(() => { //Función ready se ejecuta cuando el HTML es cargado completamente
                                         <span> $${item.precio}</span>
                                     </div>
                                     <div class="mt-4 d-flex">
-                                        <input class="form-control w-50"  type="number" class="precio" value="0" readonly>
+                                        <input class="form-control w-50"  type="number" class="precio" value="1" readonly>
                                         <button class="btn btn-outline-secondary cantidades aumenta btn-s">+</button>
                                         <button class="btn btn-outline-secondary cantidades disminuye">-</button>
                                         <button class="btn btn-primary btn-agregar" data-id="${item.id}"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -79,14 +79,17 @@ $(() => { //Función ready se ejecuta cuando el HTML es cargado completamente
         $("#resumen table").html("");
         for (const item of carrito) {
             $("#resumen table").append(`
-                <tr>
-                    <td>
+                <tr class="fila-resumen">
+                    <td >
                         <div class="py-0">${item.nombre}</div><img src="assets/img/${item.imagen}" width="60">
                         <div class="py-0"><b>Cantidad:</b> ${item.cantidad}</div>
                         <div class="py-0"><b>Precio:</b> ${item.precio}</div>
                     </td>
-                    
+                    <td class="text-end">
+                    <button type="button" class="btn btn-danger d-none remover" data-id="${item.id}"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
                 </tr>
+                
             `)
         }
         $("#paso").removeClass("d-none")
@@ -106,6 +109,8 @@ $(() => { //Función ready se ejecuta cuando el HTML es cargado completamente
         $("#resumen table").html("");
         $("#monto-total").html("")
         $("#paso").addClass("d-none")
+        
+        
       
     };
 
@@ -119,7 +124,7 @@ $(() => { //Función ready se ejecuta cuando el HTML es cargado completamente
 
     $(".disminuye").click(function() {
         let valor = $(this).siblings("input").val()
-        if(Number(valor) !== 0) {
+        if(Number(valor) !== 1) {
             valor--;
             $(this).siblings("input").val(valor)
         }
@@ -139,11 +144,12 @@ $(() => { //Función ready se ejecuta cuando el HTML es cargado completamente
         } else { // Caso donde la prenda SI está en el carrito.
             itemCarrito.cantidad += cantidad
         }
-        $(this).siblings("input").val(0)
+        $(this).siblings("input").val(1)
         mostrarResumen(carrito)
 
         const total = calcularTotal(carrito)
         $("#monto-total").html(total)
+        
     });
 
  
@@ -157,7 +163,33 @@ $(() => { //Función ready se ejecuta cuando el HTML es cargado completamente
     $("#finalizar-compra").off('click').click(function() {
        finalizarCompra();
     });
+
+    $(document).on("mouseenter",".fila-resumen", function() {
+        $(this).children("td:last-child").children("button").removeClass("d-none");
+   })
+
+   $(document).on("mouseleave",".fila-resumen", function() {
+        $(this).children("td:last-child").children("button").addClass("d-none");
+   })
+
+   $(document).on("click",".remover", function() {
+       const idPrenda = $(this).attr("data-id")
+       if(confirm("¿Desea eliminar esta prenda del carrito?")) {
+           const index = carrito.findIndex(item => item.id == idPrenda)
+           if(index != -1) {
+               carrito.splice(index,1)
+           }
+       }
+       mostrarResumen(carrito)
+       const total = calcularTotal(carrito)
+       $("#paso").addClass("d-none")
+       $("#monto-total").text(`$${total}`)
+})
 };
     listarPrendas(prendas, paginaActual);
     generarPaginacion(prendas.length, itemsPorPagina);
+
+    
+  
+
 })
